@@ -19,8 +19,9 @@ def getNTPTimeValue(server="time.apple.com", port=123) -> (bytes, float, float):
     time_difference = datetime.utcnow() - datetime(1970, 1, 1, 0, 0, 0)
     secs = time_difference.days*24.0*60.0*60.0 + time_difference.seconds
     T1 = secs + float(time_difference.microseconds / 1000000.0)
-    #data = struct.pack("!B", 0x1) + b'\x00' * 47
-    data = b'\x1b' + b'\x00' * 47
+    data = struct.pack("!B", 1)
+    #data = b'\x1b' + b'\x00' * 47
+   
     #send packet
     client.sendto(data,(server, port))
     data, _ = client.recvfrom(1024)
